@@ -1,10 +1,15 @@
 package fi.aalto.sci.cn2.drainer;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.LocationManager;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.WindowManager;
 import fi.aalto.sci.cn2.RefreshScreen;
 
@@ -14,6 +19,7 @@ public class Dispatcher {
 
     private float originalBrightness;
     private GpsDrainerListener gpsListener;
+    private BroadcastReceiver bReciever;
 
     public Dispatcher(Context context) {
         this.context = context;
@@ -25,6 +31,9 @@ public class Dispatcher {
         this.vibrate(true);
         this.brightness(true);
         this.gps(true);
+        this.bluetooth();
+
+        Log.i("Drainer", "Start draining");
     }
 
     public void stop (){
@@ -71,5 +80,38 @@ public class Dispatcher {
             locationManager.removeUpdates(this.gpsListener);
         }
 
+    }
+
+    private void bluetooth(){
+        final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+
+        if(this.bReciever == null){
+            this.bReciever = new BroadcastReceiver() {
+                public void onReceive(Context context, Intent intent) {
+                    Log.i("Drainer", "BT discovery finished");
+                    String action = intent.getAction();
+                    if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                        BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                        Log.i("Drainer", "BT device found - " + device.getName());
+                    }
+
+                    else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
+                    {
+                        if(state){
+                            adapter.startDiscovery();
+                        }
+                    }
+                }
+            };
+
+            this.context.registerReceiver(bReciever,
+                    new IntentFilter(BluetoothDevice.ACTION_FOUND));
+
+            IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+            this.context.registerReceiver(bReciever,
+                    intentFilter);
+        }
+
+        adapter.startDiscovery();
     }
 }
