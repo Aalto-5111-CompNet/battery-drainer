@@ -39,7 +39,7 @@ public class Dispatcher {
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
 
         if (state) {
-            long[] pattern = {0, 1000, 10};
+            long[] pattern = {0, 1000, 1};
             v.vibrate(pattern, 0);
         }else{
             v.cancel();
@@ -66,7 +66,7 @@ public class Dispatcher {
 
         if(state){
             if(this.gpsListener == null) this.gpsListener = new GpsDrainerListener();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this.gpsListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, this.gpsListener);
         }else{
             locationManager.removeUpdates(this.gpsListener);
         }
