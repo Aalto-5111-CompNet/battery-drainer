@@ -3,6 +3,7 @@ package fi.aalto.sci.cn2.drainer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Vibrator;
 import android.view.WindowManager;
 import fi.aalto.sci.cn2.RefreshScreen;
@@ -12,6 +13,7 @@ public class Dispatcher {
     private Context context;
 
     private float originalBrightness;
+    private GpsDrainerListener gpsListener;
 
     public Dispatcher(Context context) {
         this.context = context;
@@ -22,6 +24,7 @@ public class Dispatcher {
 
         this.vibrate(true);
         this.brightness(true);
+        this.gps(true);
     }
 
     public void stop (){
@@ -29,6 +32,7 @@ public class Dispatcher {
 
         this.vibrate(false);
         this.brightness(false);
+        this.gps(false);
     }
 
     private void vibrate(boolean state){
@@ -55,5 +59,17 @@ public class Dispatcher {
 
         activity.getWindow().setAttributes(lp);
         this.context.startActivity(new Intent(this.context, RefreshScreen.class));
+    }
+
+    private void gps(boolean state){
+        LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
+
+        if(state){
+            if(this.gpsListener == null) this.gpsListener = new GpsDrainerListener();
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, this.gpsListener);
+        }else{
+            locationManager.removeUpdates(this.gpsListener);
+        }
+
     }
 }
