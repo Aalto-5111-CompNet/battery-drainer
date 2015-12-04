@@ -16,8 +16,9 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-        dispatcher = new Dispatcher();
+        dispatcher = new Dispatcher(this);
 
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggle);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -29,7 +30,5 @@ public class MainActivity extends Activity {
                 }
             }
         });
-
-        setContentView(R.layout.main);
     }
 }
