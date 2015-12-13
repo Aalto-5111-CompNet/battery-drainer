@@ -8,8 +8,9 @@ Through what we drain battery?
   * Vibrating
   * GPS localization - fetching real-time localization
   * Wake-up lock
+  * Flash LED diode on
   
 ## TODO
 
   * Internet downloading
-  * Flash LED diode on
+
