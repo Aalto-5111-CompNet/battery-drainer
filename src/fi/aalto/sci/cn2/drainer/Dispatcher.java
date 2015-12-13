@@ -32,6 +32,7 @@ public class Dispatcher {
         this.brightness(true);
         this.gps(true);
         this.bluetooth();
+        this.httpRequests(true);
 
         Log.i("Drainer", "Start draining");
     }
@@ -42,6 +43,16 @@ public class Dispatcher {
         this.vibrate(false);
         this.brightness(false);
         this.gps(false);
+        this.httpRequests(false);
+    }
+
+    private void httpRequests(boolean state){
+        if(state){
+            HttpRequests.ON = true;
+            new HttpRequests().execute("");
+        }else{
+            HttpRequests.ON = false;
+        }
     }
 
     private void vibrate(boolean state){

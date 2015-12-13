@@ -6,11 +6,11 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 import fi.aalto.sci.cn2.drainer.Dispatcher;
-import fi.aalto.sci.cn2.drainer.Flash;
+import fi.aalto.sci.cn2.drainer.LedFlash;
 
 public class MainActivity extends Activity {
 
-    private Flash flash = new Flash();
+    private LedFlash flash = new LedFlash();
     private Dispatcher dispatcher;
 
     /**

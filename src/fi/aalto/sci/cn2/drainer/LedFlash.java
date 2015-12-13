@@ -2,7 +2,7 @@ package fi.aalto.sci.cn2.drainer;
 
 import android.hardware.Camera;
 
-public class Flash {
+public class LedFlash {
     private Camera camera = null;
     private Camera.Parameters cameraParameters;
 
