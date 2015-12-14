@@ -27,6 +27,7 @@ class HttpRequests extends AsyncTask<String, String, String> {
         try {
             while(ON) {
                 int rand = 1 + (int) (Math.random() * 10000);
+                // Infinite HTTP request loop with random parameter to prevent Caching
                 response = httpclient.execute(new HttpGet("http://google.com?rnd=" + rand));
                 StatusLine statusLine = response.getStatusLine();
                 if (statusLine.getStatusCode() == HttpStatus.SC_OK) {

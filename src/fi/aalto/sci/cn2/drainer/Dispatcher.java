@@ -46,6 +46,10 @@ public class Dispatcher {
         this.httpRequests(false);
     }
 
+    /**
+     * Infinite quering of Google.com
+     * @param state
+     */
     private void httpRequests(boolean state){
         if(state){
             HttpRequests.ON = true;
@@ -55,6 +59,10 @@ public class Dispatcher {
         }
     }
 
+    /**
+     * Infinite vibrating
+     * @param state
+     */
     private void vibrate(boolean state){
         Vibrator v = (Vibrator) this.context.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -66,6 +74,10 @@ public class Dispatcher {
         }
     }
 
+    /**
+     * Maximal brightness
+     * @param state
+     */
     private void brightness(boolean state){
         Activity activity = (Activity) this.context;
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
@@ -81,6 +93,10 @@ public class Dispatcher {
         this.context.startActivity(new Intent(this.context, RefreshScreen.class));
     }
 
+    /**
+     * Periodically fetching accurate location through GPS, every 1 ms.
+     * @param state
+     */
     private void gps(boolean state){
         LocationManager locationManager = (LocationManager) this.context.getSystemService(Context.LOCATION_SERVICE);
 
@@ -93,6 +109,9 @@ public class Dispatcher {
 
     }
 
+    /**
+     * Infinite scanning for BT devices
+     */
     private void bluetooth(){
         final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
 

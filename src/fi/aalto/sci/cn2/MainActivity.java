@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
                 if (isChecked) {
                     dispatcher.start();
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    // Turn on Flash Diode
                     flash.open();
                     flash.on();
                 } else {
